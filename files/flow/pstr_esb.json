@@ -9,7 +9,7 @@
   "Operation": "request",
   "Username": "${MQ_USER}",
   "Password": "${MQ_PASS}",
-  "ReceiveTime": "10000",
+  "RequestTimeout": "40",
   "MaxIdleTime": "900",
   "DisplayMask": "4102",
   "StringProperty": {

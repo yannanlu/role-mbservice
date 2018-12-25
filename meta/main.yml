@@ -2,9 +2,6 @@
 dependencies:
   - role: monit
   - role: java
-  - { role: sonicmq, when: mbservice_mq == 'sonicmq' }
-  - { role: activemq, when: mbservice_mq != 'sonicmq' }
+  - { role: "{{'activemq' if mbservice_mq == 'activemq' else 'sonicmq'}}", when: mbservice_mq == 'activemq' or mbservice_mq == 'sonicmq' }
   - role: tomcat
   - role: qbroker
-  - { role: apache, when: web_frontend == 'apache' }
-  - { role: nginx, when: web_frontend != 'apache' }

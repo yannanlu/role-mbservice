@@ -1,15 +1,18 @@
 ---
 web_frontend: nginx
 
+mbservice_artifact: qbroker-1.2.2.jar
+mbservice_security_plugin: qbroker-security-1.0.0.jar
 mbservice_jndi_url: file:///opt/qbroker/jndi/MB
 mbservice_context_factory: com.sun.jndi.fscontext.RefFSContextFactory
-mbservice_broker_host: localhost
-mbservice_broker_port: 61616
+mbservice_broker_list: tcp\://localhost\:61616
 mbservice_out_queue: MSG_OUT
 mbservice_proxy_queue: PROXY_OUT
 mbservice_mq: activemq
 mbservice_mq_user: "{{activemq_broker_user}}"
 mbservice_mq_passwd: "{{activemq_broker_passwd}}"
+mbservice_ts_passwd: "{{activemq_ks_passwd}}"
+mbservice_java_opts: "-Djavax.net.ssl.trustStore=/opt/activemq/conf/broker.ts -Djavax.net.ssl.trustStorePassword={{mbservice_ts_passwd}}"
 
 mbservice_location:
   service: mbservice
@@ -51,4 +54,4 @@ mbservice_jar_files:
   - xml-apis.jar
   - log4j-1.2.12.jar
   - qbroker-security-1.0.0.jar
-  - qbroker-1.2.2.jar
+  - "{{mbservice_artifact}}"

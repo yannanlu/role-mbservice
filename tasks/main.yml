@@ -1,21 +1,32 @@
 ---
+- include: ../../qbroker/tasks/webapp.yml
+  vars:
+    service_id: "{{mbservice_service_id}}" 
+    webapp_context: "{{role_name}}"
+    my_artifact: "{{mbservice_artifact}}"
+    my_jar_files: "{{mbservice_jar_files}}"
+    my_jsp_files: "{{mbservice_jsp_files}}"
+    my_json_files: "{{mbservice_json_files}}"
+    my_java_opts: "{{mbservice_java_opts}}"
+    my_is_readonly: 'false'
+
 - name: Template of Flow.json
   template:
     src: Flow.json.j2
-    dest: "{{qbroker_dir}}/flow/{{qbroker_service_id}}/Flow.json"
+    dest: "{{qbroker_dir}}/flow/{{mbservice_service_id}}/Flow.json"
     owner: "{{tomcat_user}}"
     group: "{{tomcat_group}}"
     mode: 0644
   vars:
-    id: "{{qbroker_service_id}}"
+    id: "{{mbservice_service_id}}"
     qb_dir: "{{qbroker_dir}}"
-    log_dir: "{{tomcat_logdir}}"
-  notify: Restart_tomcat.service
+    log_dir: "{{qbroker_dir}}/{{role_name}}/logs"
+  notify: "Restart_{{role_name}}"
 
 - name: Template of rpt_global_var.json.j2
   template:
     src: rpt_global_var.json.j2
-    dest: "{{qbroker_dir}}/flow/{{qbroker_service_id}}/rpt_global_var.json"
+    dest: "{{qbroker_dir}}/flow/{{mbservice_service_id}}/rpt_global_var.json"
     owner: "{{tomcat_user}}"
     group: "{{tomcat_group}}"
     mode: 0644
@@ -24,12 +35,12 @@
     ctx: "{{mbservice_context_factory}}"
     user: "{{mbservice_mq_user}}"
     passwd: "{{mbservice_mq_passwd|replace('\n', '')}}"
-  notify: Restart_tomcat.service
+  notify: "Restart_{{role_name}}"
 
 - name: Template of bindings.j2
   template:
     src: "{{mbservice_mq}}.bindings.j2"
-    dest: "{{qbroker_dir}}/jndi/{{qbroker_service_id}}/.bindings"
+    dest: "{{qbroker_dir}}/jndi/{{mbservice_service_id}}/.bindings"
     owner: "{{tomcat_user}}"
     group: "{{tomcat_group}}"
     mode: 0644
@@ -37,4 +48,4 @@
     broker_list: "{{mbservice_broker_list}}"
     out_q: "{{mbservice_out_queue}}"
     proxy_q: "{{mbservice_proxy_queue}}"
-  notify: Restart_tomcat.service
+  notify: "Restart_{{role_name}}"

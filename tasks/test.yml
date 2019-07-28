@@ -1,0 +1,23 @@
+---
+- name: Put a json file to {{qb_service}}
+  command: "/usr/bin/curl -XPUT -ks https://{{ansible_host}}/{{qb_service}}/rest/gw/flow.json -H 'Content-type: application/json' @{{qbroker_dir}}/flow/MB/Flow.json"
+  register: put_result
+  failed_when: False
+  changed_when: False
+
+- name: Check the response from {{qb_service}}
+  assert:
+    that:
+      - "'\"rc\":\"0\"' in put_result.stdout"
+
+- name: Get a msg from MQ broker for {{qb_service}}
+  command: "{{qbroker_dir}}/bin/QClient.sh '-Djavax.net.ssl.trustStore=/opt/activemq/conf/broker.ts -Djavax.net.ssl.trustStorePassword=password' -f {{mbservice_context_factory}} -u {{mbservice_jndi_url}} -i cn=OutQueue -c cn=QueueConnectionFactory -h {{mbservice_mq_user}} -m '{{mbservice_mq_passwd}}' -d 1 -n 1 -r"
+  register: msg_result
+  changed_when: False
+
+- name: Check the result for {{qb_service}}
+  assert:
+    that:
+      - "'\"org.qbroker.flow.QFlow\"' in msg_result.stdout"
+      - "'\"Node\":' in msg_result.stdout"
+      - "'\"Persister\":' in msg_result.stdout"

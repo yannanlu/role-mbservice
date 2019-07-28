@@ -1,4 +1,4 @@
-<%@page language="java" contentType="text/xml" %><%@page import="java.util.Map" %><%@page import="javax.servlet.http.HttpServletRequest" %><%!
+<%@page language="java" contentType="text/xml" %><%@ page isErrorPage="true" %><%@page import="java.util.Map" %><%@page import="javax.servlet.http.HttpServletRequest" %><%!
   /** retrieving XML data from the text field of the response */
   private String getMsg(HttpServletRequest req) {
     String msg = null, key = req.getContextPath();

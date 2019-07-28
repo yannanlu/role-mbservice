@@ -1,16 +1,5 @@
 ---
-
-# to allow PUT method
-tomcat_is_readonly: 'false'
-tomcat_java_opts: "{{mbservice_java_opts}}"
-
 qbroker_security_plugin: "{{mbservice_security_plugin}}"
-qbroker_webapp_context: mbservice
-qbroker_service_id: MB
-qbroker_artifact: "{{mbservice_artifact}}"
-qbroker_jar_files: "{{mbservice_jar_files}}"
-qbroker_json_files: "{{mbservice_json_files}}"
-qbroker_jsp_files: "{{mbservice_jsp_files}}"
 
 apache_locations:
   - "{{mbservice_location}}"

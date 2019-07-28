@@ -1,7 +1,5 @@
 ---
 dependencies:
-  - role: monit
-  - role: java
-  - { role: "{{'activemq' if mbservice_mq == 'activemq' else 'sonicmq'}}", when: mbservice_mq == 'activemq' or mbservice_mq == 'sonicmq' }
+  - { role: 'activemq', when: mbservice_mq == 'activemq' and mbservice_mq_local == True }
   - role: tomcat
   - role: qbroker

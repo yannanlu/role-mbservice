@@ -1,0 +1,6 @@
+---
+- name: Restart_mbservice
+  systemd:
+    name: "{{role_name}}.service"
+    enabled: yes
+    state: restarted

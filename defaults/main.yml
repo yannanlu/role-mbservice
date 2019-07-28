@@ -1,13 +1,15 @@
 ---
 web_frontend: nginx
 
-mbservice_artifact: qbroker-1.2.2.jar
+mbservice_service_id: MB
+mbservice_artifact: qbroker-1.2.4.jar
 mbservice_security_plugin: qbroker-security-1.0.0.jar
 mbservice_jndi_url: file:///opt/qbroker/jndi/MB
 mbservice_context_factory: com.sun.jndi.fscontext.RefFSContextFactory
 mbservice_broker_list: tcp\://localhost\:61616
 mbservice_out_queue: MSG_OUT
 mbservice_proxy_queue: PROXY_OUT
+mbservice_mq_local: True
 mbservice_mq: activemq
 mbservice_mq_user: "{{activemq_broker_user}}"
 mbservice_mq_passwd: "{{activemq_broker_passwd}}"
@@ -42,8 +44,9 @@ mbservice_jar_files:
   - activemq-all-5.13.3.jar
   - sonic_Client-10.0.jar
   - sonic_Crypto-10.0.jar
+  - sonic_SSL-10.0.jar
   - sonic_XA-10.0.jar
-  - commons-fileupload-1.2.2.jar
+  - commons-fileupload-1.3.3.jar
   - commons-io-1.4.jar
   - commons-net-3.3.jar
   - jakarta-oro-2.0.8.jar

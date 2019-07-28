@@ -1,0 +1,8 @@
+---
+- include: roles/qbroker/tasks/remove_item.yml
+  vars:
+    my_dir: "{{qbroker_dir}}"
+  with_items:
+    - "flow/{{mbservice_service_id}}"
+    - "jndi/{{mbservice_service_id}}"
+    - "{{qb_service}}"

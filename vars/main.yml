@@ -1,5 +1,7 @@
 ---
 qbroker_security_plugin: "{{mbservice_security_plugin}}"
+apache_server_name: "{{mbservice_server_name}}"
+nginx_server_name: "{{mbservice_server_name}}"
 
 apache_locations:
   - "{{mbservice_location}}"

@@ -1,6 +1,6 @@
 ---
 web_frontend: nginx
-
+mbservice_server_name: ''
 mbservice_service_id: MB
 mbservice_artifact: qbroker-1.2.4.jar
 mbservice_security_plugin: qbroker-security-1.0.0.jar

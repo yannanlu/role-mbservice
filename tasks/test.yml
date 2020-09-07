@@ -4,7 +4,7 @@
     my_host: "{{mbservice_server_name|default('localhost', true)}}"
 
 - name: Put a json file to {{qb_service}}
-  command: "/usr/bin/curl -XPUT -ks https://{{ansible_host}}/{{qb_service}}/rest/gw/flow.json -H 'Content-type: application/json' -H 'Host: {{my_host}}' -d @{{qbroker_dir}}/flow/MB/Flow.json"
+  command: "/usr/bin/curl -XPUT -ks https://{{mbservice_server_name|default(ansible_host, true)}}/{{qb_service}}/rest/gw/flow.json -H 'Content-type: application/json' -H 'Host: {{my_host}}' -d @{{qbroker_dir}}/flow/MB/Flow.json"
   args:
     warn: False
   register: put_result

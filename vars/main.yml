@@ -1,12 +1,14 @@
 ---
 qbroker_security_plugin: "{{mbservice_security_plugin}}"
+apache_rolename: mbservice
 apache_server_name: "{{mbservice_server_name}}"
+nginx_rolename: mbservice
 nginx_server_name: "{{mbservice_server_name}}"
 
 apache_locations:
-  - "{{mbservice_location}}"
+  - "{{mbservice_location_dict[webapp_container|default('tomcat')]}}"
   - "{{activemq_admin_location}}"
 
 nginx_locations:
-  - "{{mbservice_location}}"
+  - "{{mbservice_location_dict[webapp_container|default('tomcat')]}}"
   - "{{activemq_admin_location}}"

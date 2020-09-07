@@ -1,5 +1,5 @@
 ---
 dependencies:
   - { role: 'activemq', when: mbservice_mq == 'activemq' and mbservice_mq_local == True }
-  - role: tomcat
+  - role: "{{webapp_container|default('tomcat')}}" 
   - role: qbroker

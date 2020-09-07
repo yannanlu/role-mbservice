@@ -1,5 +1,5 @@
 ---
-- include: ../../qbroker/tasks/webapp.yml
+- include: "../../qbroker/tasks/webapp_{{webapp_container|default('tomcat')}}.yml"
   vars:
     service_id: "{{mbservice_service_id}}" 
     webapp_context: "{{role_name}}"
@@ -14,21 +14,21 @@
   template:
     src: Flow.json.j2
     dest: "{{qbroker_dir}}/flow/{{mbservice_service_id}}/Flow.json"
-    owner: "{{tomcat_user}}"
-    group: "{{tomcat_group}}"
+    owner: "{{qbroker_user}}"
+    group: "{{qbroker_group}}"
     mode: 0644
   vars:
     id: "{{mbservice_service_id}}"
     qb_dir: "{{qbroker_dir}}"
-    log_dir: "{{qbroker_dir}}/{{role_name}}/logs"
+    log_dir: "{{qbroker_dir}}/{{role_name}}/{{mbservice_log_folder}}"
   notify: "Restart_{{role_name}}"
 
 - name: Template of rpt_global_var.json.j2
   template:
     src: rpt_global_var.json.j2
     dest: "{{qbroker_dir}}/flow/{{mbservice_service_id}}/rpt_global_var.json"
-    owner: "{{tomcat_user}}"
-    group: "{{tomcat_group}}"
+    owner: "{{qbroker_user}}"
+    group: "{{qbroker_group}}"
     mode: 0644
   vars:
     url: "{{mbservice_jndi_url}}"
@@ -41,8 +41,8 @@
   template:
     src: "{{mbservice_mq}}.bindings.j2"
     dest: "{{qbroker_dir}}/jndi/{{mbservice_service_id}}/.bindings"
-    owner: "{{tomcat_user}}"
-    group: "{{tomcat_group}}"
+    owner: "{{qbroker_user}}"
+    group: "{{qbroker_group}}"
     mode: 0644
   vars:
     broker_list: "{{mbservice_broker_list}}"
